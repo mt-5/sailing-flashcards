@@ -11,12 +11,18 @@
     filters: document.getElementById("filters"),
     seen: document.getElementById("seen"),
     total: document.getElementById("total"),
+    counter: document.getElementById("counter"),
     bar: document.getElementById("bar"),
     prev: document.getElementById("prev"),
     next: document.getElementById("next"),
     known: document.getElementById("known"),
     shuffle: document.getElementById("shuffle"),
     reset: document.getElementById("reset"),
+    viewCards: document.getElementById("view-cards"),
+    viewDiagrams: document.getElementById("view-diagrams"),
+    tabCards: document.getElementById("tab-cards"),
+    tabDiagrams: document.getElementById("tab-diagrams"),
+    diagramsList: document.getElementById("diagrams-list"),
   };
 
   const state = {
@@ -24,6 +30,7 @@
     deck: [],
     idx: 0,
     knownIds: new Set(),
+    view: "cards",
   };
 
   const cardId = c => `${c.cat}::${c.term}`;
@@ -35,12 +42,13 @@
       const data = JSON.parse(raw);
       state.knownIds = new Set(data.known || []);
       state.activeCat = data.activeCat || "All";
+      state.view = data.view === "diagrams" ? "diagrams" : "cards";
     } catch {}
   }
   function save() {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ known: [...state.knownIds], activeCat: state.activeCat })
+      JSON.stringify({ known: [...state.knownIds], activeCat: state.activeCat, view: state.view })
     );
   }
 
@@ -135,6 +143,31 @@
     renderCard();
   }
 
+  function setView(view) {
+    state.view = view;
+    save();
+    const showCards = view === "cards";
+    els.viewCards.classList.toggle("hidden", !showCards);
+    els.viewDiagrams.classList.toggle("hidden", showCards);
+    els.tabCards.classList.toggle("active", showCards);
+    els.tabDiagrams.classList.toggle("active", !showCards);
+    els.counter.style.visibility = showCards ? "" : "hidden";
+    if (!showCards && !els.diagramsList.children.length) renderDiagrams();
+  }
+
+  function renderDiagrams() {
+    els.diagramsList.innerHTML = DIAGRAMS.map(d => `
+      <article class="diagram" id="d-${d.id}">
+        <h2>${d.title}</h2>
+        <p class="caption">${d.caption}</p>
+        ${d.svg}
+      </article>
+    `).join("");
+  }
+
+  els.tabCards.addEventListener("click", () => setView("cards"));
+  els.tabDiagrams.addEventListener("click", () => setView("diagrams"));
+
   els.card.addEventListener("click", flip);
   els.card.addEventListener("keydown", e => {
     if (e.key === " " || e.key === "Enter") { e.preventDefault(); flip(); }
@@ -146,6 +179,7 @@
   els.reset.addEventListener("click", reset);
 
   document.addEventListener("keydown", e => {
+    if (state.view !== "cards") return;
     if (e.target.tagName === "INPUT" || e.target.tagName === "BUTTON") return;
     if (e.key === "ArrowRight") nextCard();
     else if (e.key === "ArrowLeft") prevCard();
@@ -158,4 +192,5 @@
   buildDeck();
   renderFilters();
   renderCard();
+  setView(state.view);
 })();

@@ -1,9 +1,24 @@
 # Sailing Flashcards
 
-A tiny static flashcard app for learning **dinghy sailing terminology** —
-beginner to novice level.
+A tiny static app for learning **dinghy sailing terminology** —
+beginner to novice level. Two views: a **flashcard deck** and a set of
+**inline-SVG infographics** for the visual concepts that are hard to grasp
+from text alone.
 
 Open `index.html` in a browser. Nothing to install, no build step.
+
+## Diagrams
+
+- **Points of sail** — sailing clock with wind, no-go zone, and boat
+  silhouettes for close-hauled / beam reach / broad reach / run on both
+  tacks.
+- **Parts of a dinghy** — labelled side view (mast, boom, jib, mainsail,
+  rudder, tiller, centreboard, etc.).
+- **Anatomy of a sail** — head, tack, clew, luff, leach, foot.
+- **Right of way** — port tack vs starboard tack on converging course.
+
+All diagrams are inline SVG in `diagrams.js` — no images, no external
+fonts beyond the page's Inter / Fraunces, and they scale to any width.
 
 ## Deck
 
