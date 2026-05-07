@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sailing Flashcards · Dinghy beginner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">⛵</span>
+    <div>
+      <h1>Sailing Flashcards</h1>
+      <p>Dinghy terminology · beginner to novice</p>
+    </div>
+  </div>
+  <div class="counter"><span id="seen">0</span><span class="sep">/</span><span id="total">0</span></div>
+</header>
+
+<nav class="filters" id="filters" aria-label="Filter by category"></nav>
+
+<main class="stage">
+  <div class="card" id="card" tabindex="0" role="button" aria-pressed="false" aria-label="Flashcard. Press to flip.">
+    <div class="card-inner">
+      <div class="card-face card-front">
+        <div class="card-cat" id="card-cat"></div>
+        <div class="card-term" id="card-term"></div>
+        <div class="card-hint">tap or press space to flip</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-cat" id="card-cat-back"></div>
+        <div class="card-def" id="card-def"></div>
+        <div class="card-source" id="card-source"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="controls">
+  <button id="prev" class="btn" aria-label="Previous card (left arrow)">←</button>
+  <button id="known" class="btn btn-primary" aria-label="Mark as known (K)">I know this</button>
+  <button id="reset" class="btn btn-ghost" aria-label="Reset progress">Reset</button>
+  <button id="shuffle" class="btn" aria-label="Shuffle (S)">Shuffle</button>
+  <button id="next" class="btn" aria-label="Next card (right arrow)">→</button>
+</div>
+
+<div class="progress" aria-hidden="true"><div id="bar"></div></div>
+
+<footer class="foot">
+  <span>← → flip · space flip · K know · S shuffle</span>
+  <span>Source: <a href="https://www.instructortoolkit.co.uk/instructor-resources/dinghy-instructor-resources/dinghy-sailing-terminology/" target="_blank" rel="noopener">instructortoolkit.co.uk</a> + extras</span>
+</footer>
+
+<script src="cards.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
